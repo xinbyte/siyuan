@@ -767,6 +767,9 @@ func InitBoxes() {
 
 func IsSubscriber() bool {
 	u := Conf.GetUser()
+	u.UserSiYuanProExpireTime = 1
+	u.UserSiYuanSubscriptionStatus = 0
+	u.UserSiYuanSubscriptionPlan = 0
 	return nil != u && (-1 == u.UserSiYuanProExpireTime || 0 < u.UserSiYuanProExpireTime) && 0 == u.UserSiYuanSubscriptionStatus
 }
 
@@ -774,7 +777,8 @@ func IsPaidUser() bool {
 	if IsSubscriber() {
 		return true
 	}
-	return nil != Conf.GetUser() // Sign in to use S3/WebDAV data sync https://github.com/siyuan-note/siyuan/issues/8779
+	return true
+	// return nil != Conf.GetUser() // Sign in to use S3/WebDAV data sync https://github.com/siyuan-note/siyuan/issues/8779
 	// TODO S3/WebDAV data sync and backup are available for a fee https://github.com/siyuan-note/siyuan/issues/8780
 	// return nil != Conf.User && 1 == Conf.User.UserSiYuanOneTimePayStatus
 }
